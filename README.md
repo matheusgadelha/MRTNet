@@ -2,7 +2,7 @@
 
 This repository contains the source code for the ECCV 2018 paper Multiresolution Tree Networks for 3D Point Clout Processing.
 
-![MRTNet overview](http://mgadelha.me/mrt/fig/abstract.png)
+![MRTNet reconstructions](http://mgadelha.me/mrt/fig/realrec2.png)
 
 ## Dependencies
 
