@@ -40,12 +40,8 @@ if __name__ == '__main__':
     #full_name = args.name
     print full_name
 
-    #mri2pc = SingleResImageToShape(size=4096, dim=3, batch_size=1, 
-    #        name=full_name, pretrained=ptrain, arch=args.arch)
-    mri2pc = FCImageToShape(size=4096, dim=3, batch_size=1, 
+    mri2pc = MultiResImageToShape(size=4096, dim=3, batch_size=1, 
             name=full_name, pretrained=ptrain, arch=args.arch)
-    #mri2pc = MultiResImageToShape(size=4096, dim=3, batch_size=1, 
-    #        name=full_name, pretrained=ptrain, arch=args.arch)
     mri2pc.load('checkpoint')
     optimizer = optim.Adam(mri2pc.parameters(), lr=0.001)
     

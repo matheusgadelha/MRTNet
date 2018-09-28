@@ -23,6 +23,8 @@ parser.add_argument("-c", "--category", type=str, help="Category code (all is po
 parser.add_argument("--train", dest='train', action='store_true')
 parser.set_defaults(train=False)
 
+
+#CHANGE THESE!!!
 image_datapath = "/media/mgadelha/hd2/ShapenetRenderings"
 pc_datapath = "/media/mgadelha/hd2/shapenet_4k"
 

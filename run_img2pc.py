@@ -24,6 +24,8 @@ parser.add_argument("-c", "--category", type=str, help="Category code (all is po
 parser.add_argument("--train", dest='train', action='store_true')
 parser.set_defaults(train=False)
 
+
+#Change this for a path with images you want to test
 image_datapath = "notseen_real"
 
 if __name__ == '__main__':

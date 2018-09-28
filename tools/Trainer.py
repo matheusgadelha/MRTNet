@@ -70,9 +70,6 @@ class ImageToPCTrainer(object):
         self.val_loader = val_loader
         self.loss_fn = loss_fn
         self.log_dir = log_dir
-        #self.logger = DataVis.LossLogger(model.name)
-        #self.val_logger = DataVis.LossLogger("Validation-"+model.name)
-        #self.train_logger = DataVis.LossLogger("Training acc. "+model.name)
 
         self.writer = SummaryWriter(self.log_dir)
 
@@ -98,15 +95,12 @@ class ImageToPCTrainer(object):
                 self.optimizer.zero_grad()
 
                 out_data = self.model(in_data)
-                #loss = F.mse_loss(out_data, target)
                 loss = self.loss_fn(out_data, target)
                 print loss
 
                 self.writer.add_scalar('train_loss', loss, it_num)
-                #self.logger.update(loss)
 
                 loss.backward()
-                #from IPython import embed; embed(); exit(-1)
                 self.optimizer.step()
                 it_num += 1
 
@@ -121,13 +115,6 @@ class ImageToPCTrainer(object):
                     self.model.save_results(results_dir, out_data)
                 except NotImplementedError:
                     print "Results not saved."
-
-
-            #epoch_acc = self.update_validation_accuracy(epoch)
-            #if epoch_acc > best_acc:
-            #    best_acc = epoch_acc
-            #    self.model.save("checkpoint", epoch)
-                #self.update_validation_accuracy(epoch)
 
             if epoch > 0 and epoch % 5 == 0:
                 for param_group in self.optimizer.param_groups:
@@ -148,7 +135,6 @@ class ImageToPCTrainer(object):
             in_data = Variable(data[0].cuda())
 
             out_data = self.model(in_data)
-            from IPython import embed; embed(); exit(-1)
             
             results_dir = os.path.join("run", self.model.name)
             print data[2]
@@ -186,22 +172,17 @@ class ImageToPCTrainer(object):
 
             out_data = self.model(in_data)
             
-            #indices = np.arange(4096)
-            #np.random.shuffle(indices)
-            #indices = indices[:1024]
-            #out_data = out_data[:, :, indices]
-            #target = target[:, :, indices]
-
             pd = Ops.batch_pairwise_dist(out_data.transpose(1,2), 
                 target.transpose(1,2))
             pd = torch.sqrt(pd)
-            #it_d = torch.min(pd, dim=2)[0].sum() + torch.min(pd, dim=1)[0].sum()
+
             total_error_class[class_id, 0] += torch.min(pd, dim=2)[0].data.cpu().numpy().mean()
             total_error_class[class_id, 1] += torch.min(pd, dim=1)[0].data.cpu().numpy().mean()
             total_count_class[class_id] += 1.0
 
             scalar_group = {}
 
+            #Iterate over classes
             for c in xrange(13):
                 if total_count_class[c] > 0.0:
                     scalar_group['class{}_error_pred'.format(c)] =  total_error_class[c, 0]/total_count_class[c]
@@ -211,11 +192,9 @@ class ImageToPCTrainer(object):
             np.save('total_count_class.npy', total_count_class)
             self.writer.add_scalars('class_errors', scalar_group, i)
 
-            #total_d += it_d.data.cpu().numpy()
-
             n_iter += self.model.batch_size
-            #self.writer.add_scalar('test_run', total_d/n_iter, i)
 
+            #Save some point clouds for visualization
             if i < 50:
                 results_dir = os.path.join("eval", self.model.name)
                 if not os.path.exists(results_dir):
@@ -225,6 +204,7 @@ class ImageToPCTrainer(object):
                 save_torch_pc(os.path.join(results_dir, "out_{}.obj".format(str(2*i+1).zfill(4))), target)
                 print "Test PC saved."
 
+        #Saves results
         np.save('total_error_class.npy', total_error_class)
         np.save('total_count_class.npy', total_count_class)
         print total_d/n_iter
