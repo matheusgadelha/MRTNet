@@ -2,7 +2,7 @@
 
 This repository contains the source code for the ECCV 2018 paper Multiresolution Tree Networks for 3D Point Clout Processing.
 
-![MRTNet overview](http://mgadelha.me/mrt/fig/abstract.png)
+![MRTNet reconstructions](http://mgadelha.me/mrt/fig/realrec2.png)
 
 ## Dependencies
 
@@ -28,4 +28,4 @@ Notice that`experiment_name` should match in both cases. Similarly, we also have
 
 ## Dataset
 
-ShapeNet point clouds can be found [here](http://bluenoise.cs.umass.edu/shapenet_4k_npy.zip).
+ShapeNet point clouds sorted according to a kd-tree can be found [here](http://bluenoise.cs.umass.edu:8000/shapenet_points.zip).
