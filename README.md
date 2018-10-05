@@ -39,11 +39,8 @@ ShapeNet point clouds sorted according to a kd-tree can be found [here](http://b
 If you use any part of this code or data, consider citing this work:
 ```
 @inProceedings{mrt18,
-  title={Multiresolution Tree Networks for
-3D Point Cloud Processing},
-  author = {Matheus Gadelha and
-  Rui Wang
-  and Subhransu Maji},
+  title={Multiresolution Tree Networks for 3D Point Cloud Processing},
+  author = {Matheus Gadelha and Rui Wang and Subhransu Maji},
   booktitle={ECCV},
   year={2018}
 }
