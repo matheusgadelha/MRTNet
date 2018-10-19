@@ -1,0 +1,14 @@
+To compile:
+
+javac -cp .:./vecmath.jar cotSpectral.java
+
+To run:
+
+java -cp .:./vecmath.jar cotSpectral in.obj out.obj nsample [sorting] [dmetric]
+
+nsample:	number of samples (e.g. 1024)
+sorting:	choices are kd or xyz (kd is default)
+dmetric:	choices are geodesic or random (geodesic is default)
+
+[] options are optional, if you don't provide these, it will use default value
+
