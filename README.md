@@ -29,9 +29,10 @@ python run_img2pc.py --n experiment_name
 Notice that`experiment_name` should match in both cases. Similarly, we also have evaluation code to reproduce the paper's numbers.
 
 
-## Dataset
+## Point Sampling
 
-ShapeNet point clouds sorted according to a kd-tree can be found [here](http://bluenoise.cs.umass.edu:8000/shapenet_points.zip).
+This repository also contains code for sampling the point clouds in the sampler folder. It is a single .java file and it contains a README with specific instructions.
+This code automatically sorts the points according to a kd-tree structure.
 
 
 ## Citation
